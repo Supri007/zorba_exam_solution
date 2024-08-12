@@ -66,6 +66,10 @@ public class ReadFromExcelFile {
             i++;
         }
         System.out.println(employeeArr[1].toString());
+        for (int arr = 0; arr < employeeArr.length; arr++){
+            UploadDataToDB.UploadData(employeeArr[arr]);
+        }
+
 
         //Read sheet to get data and create skill object
         XSSFSheet xssfSheet1 = xssfWorkbook.getSheetAt(1);
@@ -98,6 +102,11 @@ public class ReadFromExcelFile {
             }
             skillArr[j] = skill;
             j++;
+        }
+
+        System.out.println(employeeArr[1].toString());
+        for (int arr = 0; arr < skillArr.length; arr++){
+            UploadDataToDB.UploadData(skillArr[arr]);
         }
 
         //Read sheet to get data and create employeeSkill object

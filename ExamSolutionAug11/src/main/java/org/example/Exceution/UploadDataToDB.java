@@ -7,7 +7,7 @@ import org.hibernate.cfg.Configuration;
 
 public class UploadDataToDB {
 
-    public static void UploadData(){
+    public static void UploadData(Object object){
         Configuration configuration = new Configuration();
         configuration.configure("hibernate.cfg.xml");
 
@@ -17,5 +17,18 @@ public class UploadDataToDB {
         //Create new Session
         Session session = sessionFactory.openSession();
         Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            session.persist(object);
+            tx.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            tx.rollback();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 }
