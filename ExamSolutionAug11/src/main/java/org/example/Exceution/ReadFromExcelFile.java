@@ -30,12 +30,12 @@ public class ReadFromExcelFile {
         System.out.println("Number Of Rows Present : "+ noOfRows);
         Employee[] employeeArr = new Employee[noOfRows-1];
         Iterator<Row> rowIterator = xssfSheet.iterator();
-        int i = 0;
+        int i = 1;
         while (rowIterator.hasNext()) {
             if (i >= noOfRows - 1) {
                 break;
             }
-            Row row = rowIterator.next();
+            Row row = xssfSheet.getRow(i); //rowIterator.next();
             System.out.println("Row Number :: "+ row.getRowNum());
             int noOfCell = row.getLastCellNum();
             Iterator<Cell> cellIterator = row.iterator();
@@ -65,7 +65,7 @@ public class ReadFromExcelFile {
             employeeArr[i] = employee;
             i++;
         }
-        System.out.println(employeeArr[1].toString());
+        System.out.println(employeeArr[1].employeeName);
         for (int arr = 0; arr < employeeArr.length; arr++){
             UploadDataToDB.UploadData(employeeArr[arr]);
         }
@@ -77,12 +77,12 @@ public class ReadFromExcelFile {
         System.out.println("Number Of Rows Present : "+ noOfRows);
         Skill[] skillArr = new Skill[noOfRows-1];
         Iterator<Row> rowIteratorskill = xssfSheet.iterator();
-        int j = 0;
-        while (rowIterator.hasNext()) {
+        int j = 1;
+        while (rowIteratorskill.hasNext()) {
             if (j >= noOfRowsSkill - 1) {
                 break;
             }
-            Row row = rowIterator.next();
+            Row row = xssfSheet1.getRow(j);
             System.out.println("Row Number :: "+ row.getRowNum());
             int noOfCell = row.getLastCellNum();
             Iterator<Cell> cellIterator = row.iterator();
@@ -115,12 +115,12 @@ public class ReadFromExcelFile {
         System.out.println("Number Of Rows Present : "+ noOfRows);
         EmployeeSkill[] empSkillArr = new EmployeeSkill[noOfRows-1];
         Iterator<Row> rowIteratorEmpSkill = xssfSheet.iterator();
-        int k = 0;
-        while (rowIterator.hasNext()) {
+        int k = 1;
+        while (rowIteratorEmpSkill.hasNext()) {
             if (k >= noOfRowsEmpSkill - 1) {
                 break;
             }
-            Row row = rowIterator.next();
+            Row row = xssfSheet2.getRow(k);
             System.out.println("Row Number :: "+ row.getRowNum());
             int noOfCell = row.getLastCellNum();
             Iterator<Cell> cellIterator = row.iterator();

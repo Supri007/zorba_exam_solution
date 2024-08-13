@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Mapping DTD//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="org.example.xml_based.entity.Skill" table="skill">
+    <class name="org.example.Entity.Skill" table="skill">
         <id name="skillId" column="skill_id">
             <generator class="increment"/>
         </id>
