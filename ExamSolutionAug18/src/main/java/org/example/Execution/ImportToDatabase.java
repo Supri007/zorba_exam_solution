@@ -10,8 +10,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -30,7 +32,7 @@ public class ImportToDatabase {
         List<ProductType> prodTypeList = new ArrayList<>();
         prodTypeList.add(Utility.CreateProductType("Grocery", 30));
         prodTypeList.add(Utility.CreateProductType("Cosmetics", 50));
-        prodTypeList.add(Utility.CreateProductType("DailyProduct", 35));
+        prodTypeList.add(Utility.CreateProductType("DairyProduct", 35));
 
         //Create customer info
         Customer customer = Utility.GetCustomerInfo(sc);
@@ -38,17 +40,23 @@ public class ImportToDatabase {
         Product product = Utility.GetProductInfo(sc);
         sc.close();
         //Get product type
+        String prodType = "";
+        List<String> dairyProductsList = Arrays.asList("milk","butter","paneer");
+        List<String> cosmeticsList = Arrays.asList("facewash","soap","detergent");
+        List<String> groceryList = Arrays.asList("rice","flour","vegetables");
 
+        if (dairyProductsList.contains(product.productName.toLowerCase())){
+            prodType = "DairyProduct";
+        }
+        else if (cosmeticsList.contains(product.productName.toLowerCase())){
+            prodType = "Cosmetics";
+        }
+        else if (groceryList.contains(product.productName.toLowerCase())){
+            prodType = "Grocery";
+        }
 
         //Create SessionFactory Object from Configuration
         SessionFactory sessionFactory = configuration.buildSessionFactory();
-        //Query from database
-        Session session1 = sessionFactory.openSession();
-        CriteriaBuilder queryCriteria = session1.getCriteriaBuilder();
-        CriteriaQuery<ProductType> productQuery = queryCriteria.createQuery(ProductType.class);
-        Root<ProductType> fromProduct = productQuery.from(ProductType.class);
-        productQuery.select(fromProduct).where();
-
 
 
         System.out.println("Table created successfully");
@@ -59,6 +67,16 @@ public class ImportToDatabase {
             for(ProductType type: prodTypeList){
                 session.merge(type);
             }
+            //Query from database
+            //Session session1 = sessionFactory.openSession();
+            CriteriaBuilder queryCriteria = session.getCriteriaBuilder();
+            CriteriaQuery<ProductType> productQuery = queryCriteria.createQuery(ProductType.class);
+            Root<ProductType> fromProduct = productQuery.from(ProductType.class);
+            productQuery.select(fromProduct).where(queryCriteria.equal(fromProduct.get("productType"), prodType));
+            Query query = session.createQuery(productQuery);
+            List<ProductType> prodTypeaFromDB = query.list();
+
+            customer.productPrice = prodTypeaFromDB.get(0).rate * product.productQuantity;
             System.out.println("Product Type added successfully");
             session.merge(customer);
             System.out.println("Customer added successfully");
