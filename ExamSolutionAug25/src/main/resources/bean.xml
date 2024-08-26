@@ -1,0 +1,14 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation = "http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd" default-init-method="init" default-destroy-method="destroy">
+
+    <bean name="rentOfOneBHKFlat" class="org.example.RentFlat.RentOfOneBHKFlat"/>
+    <bean name="rentOfTwoBHKFlat" class="org.example.RentFlat.RentOfTwoBHKFlat"/>
+    <bean name="rentOfThreeBHKFlat" class="org.example.RentFlat.RentOfThreeBHKFlat"/>
+    <bean name="rentOfFlat" class="org.example.RentFlat.RentOfFlat">
+        <constructor-arg index="0" ref="rentOfOneBHKFlat"/>
+        <constructor-arg index="1" ref="rentOfTwoBHKFlat"/>
+        <constructor-arg index="2" ref="rentOfThreeBHKFlat"/>
+    </bean>
+</beans>
