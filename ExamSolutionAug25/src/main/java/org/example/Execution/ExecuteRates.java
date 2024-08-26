@@ -17,6 +17,7 @@ public class ExecuteRates {
         ApplicationContext cont = new ClassPathXmlApplicationContext("bean.xml");
         int noOfPerson = 5;
 
+        //For Rent Of Flat
         RentOfFlat rof = cont.getBean(RentOfFlat.class);
         RentOfOneBHKFlat rof1 = rof.getRentOne();
         int totalCostOne = rof1.calculateRentOfFlat(5);
