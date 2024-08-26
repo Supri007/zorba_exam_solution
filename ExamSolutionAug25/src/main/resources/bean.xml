@@ -11,4 +11,15 @@
         <constructor-arg index="1" ref="rentOfTwoBHKFlat"/>
         <constructor-arg index="2" ref="rentOfThreeBHKFlat"/>
     </bean>
+
+    <!--For selfOwned flat-->
+    <bean name="selfOwnedOneBHKFlat" class="org.example.SelfOwned.SelfOwnedOneBHKFlat"/>
+    <bean name="selfOwnedTwoBHKFlat" class="org.example.SelfOwned.SelfOwnedTwoBHKFlat"/>
+    <bean name="selfOwnedThreeBHKFlat" class="org.example.SelfOwned.SelfOwnedThreeBHKFlat"/>
+    <bean name="emp" class="org.example.SelfOwned.SelfOwnedFlat" autowire="constructor">
+        <constructor-arg index="0" ref="selfOwnedOneBHKFlat"/>
+        <constructor-arg index="1" ref="selfOwnedTwoBHKFlat"/>
+        <constructor-arg index="2" ref="selfOwnedThreeBHKFlat"/>
+    </bean>
+
 </beans>
