@@ -70,8 +70,9 @@ public class UserImpl implements IUser{
         User userToUpdate = new User();
         userToUpdate.setUserId(user.getUserId());
         userToUpdate.setRole(user.getRole());
+        String query = "UPDATE User SET role = :role WHERE id = :userId";
         try {
-            session.update(userToUpdate);
+            session.createQuery(query);
             users = getAllUsers();
         } catch (Exception e) {
             throw new UserDataException("Failed to update user. Error: " + e.getMessage());
