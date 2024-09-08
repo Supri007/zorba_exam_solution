@@ -12,5 +12,8 @@
 </head>
 <body>
   <h1>User was added successfully</h1>
+  <form>
+      <button type="submit" formaction="http://localhost:8081/SpringWebMVCExam/userRegistration">Home</button>
+  </form>
 </body>
 </html>
