@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
   Created by IntelliJ IDEA.
   User: Suprima
@@ -32,7 +33,12 @@
             <td><c:out value="${user.email}"/></td>
             <td><c:out value="${user.mobile}"/></td>
             <td><c:out value="${user.userName}"/></td>
-            <td><c:out value="${user.role}"/></td>
+            <td>
+                <a href="http://localhost:8081/SpringWebMVCExam/userRegistration/removeRoles?roles=${user.role}">
+                    <c:out value="${user.role}"/>
+                </a>
+
+            </td>
         </tr>
     </c:forEach>
 </table>

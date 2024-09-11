@@ -34,6 +34,12 @@ public class UserController {
         return modelAndView;
     }
 
+    @GetMapping("/removeRoles")
+    public ModelAndView removeRoles(@ModelAttribute UserModel userModel, Model model) {
+        ModelAndView modelAndView = new ModelAndView("RemoveRole");
+        return modelAndView;
+    }
+
     @PostMapping("/saveUserData")
     public String saveStudent(@ModelAttribute UserModel userModel, Model model) throws UserDataException {
         String response = this.userService.addUserData(userModel);

@@ -9,4 +9,5 @@ public interface IUser {
     String addUser(User user);
     public List<User> getAllUsers() throws UserDataException;
     public List<User> updateUserRole(User user) throws UserDataException;
+    public User getUserById(Integer userId) throws UserDataException;
 }

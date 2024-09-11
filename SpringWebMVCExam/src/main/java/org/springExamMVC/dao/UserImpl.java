@@ -63,16 +63,40 @@ public class UserImpl implements IUser{
     }
 
     @Override
+    public User getUserById(Integer userId) throws UserDataException {
+        Session session = this.sessionFactory.getCurrentSession();
+        User user = null;
+        String userFromDB = "FROM User where id = " + userId;
+        try {
+            Query query = session.createQuery(userFromDB);
+            user = (User)query.uniqueResult();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            throw new UserDataException("Error while fetching data: " + e.getMessage());
+        } finally {
+            if (session != null) {
+                //session.close();
+            }
+        }
+        return user;
+    }
+
+    @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public List<User> updateUserRole(User user) throws UserDataException {
         Session session = this.sessionFactory.getCurrentSession();
         List<User> users = new ArrayList<>();
-        User userToUpdate = new User();
-        userToUpdate.setUserId(user.getUserId());
-        userToUpdate.setRole(user.getRole());
-        String query = "UPDATE User SET role = :role WHERE id = :userId";
+        User userToUpdate = getUserById(user.getUserId());
+        String role = userToUpdate.getRole();
+        if (role != null) {
+            userToUpdate.setRole((user.getRole()) + "," + role);
+        }
+        else{
+            userToUpdate.setRole(user.getRole());
+        }
+
         try {
-            session.createQuery(query);
+            session.saveOrUpdate(userToUpdate);
             users = getAllUsers();
         } catch (Exception e) {
             throw new UserDataException("Failed to update user. Error: " + e.getMessage());

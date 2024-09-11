@@ -68,6 +68,7 @@ public class UserService {
             userModel.setEmail(user.getEmail());
             userModel.setMobile(user.getMobile());
             userModel.setPassword(user.getPassword());
+            userModel.setRole(user.getRole());
             userModels.add(userModel);
         }
         return userModels;
